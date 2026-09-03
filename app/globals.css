@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonds — crème et sable, jamais un blanc d'écran pur */
+  --color-creme: #faf7f2;
+  --color-creme-chaud: #f4ede2;
+  --color-sable: #e9dccb;
+  --color-sable-fonce: #d9c8b2;
+
+  /* Textes — un brun très foncé, plus doux qu'un noir sur fond clair */
+  --color-encre: #2a231e;
+  --color-encre-doux: #5c5148;
+  --color-encre-discret: #8a7d70;
+
+  /* Accent — terracotta assez foncé pour rester lisible en petit corps
+     (5,2:1 sur le crème, au-dessus du minimum AA de 4,5:1) */
+  --color-terracotta: #9d5740;
+  --color-terracotta-clair: #c07a5c;
+  --color-terracotta-pale: #e7cdc0;
+}
+
+:root {
+  /* Teinte des voiles posés sur les photos, alignée sur le fond du site. */
+  --voile: 250 247 242;
+}
+
+/* `inline` est obligatoire : ces tokens pointent vers les variables posées
+   par next/font sur <body>, qui n'existent pas au moment de la compilation. */
+@theme inline {
+  --font-titre: var(--font-fraunces);
+  --font-corps: var(--font-albert);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-creme);
+    color: var(--color-encre);
+    font-family: var(--font-corps), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-terracotta);
+    color: var(--color-creme);
+  }
+
+  /* Cible de focus visible partout : une partie de la clientèle navigue au
+     clavier ou avec une loupe d'écran. */
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
+}
+
+@utility capitales {
+  /* Petites capitales espacées : surtitres, libellés, menu */
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+}
+
+@utility grain-doux {
+  /* Grain très fin, qui empêche les grands aplats crème de paraître plats.
+     Beaucoup plus discret que sur un fond sombre : en `multiply`, sinon il
+     blanchit le fond au lieu de le texturer. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.35'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.28;
+}
+
+@utility halo-terre {
+  /* Nappe terracotta diffuse, posée derrière un titre ou une photo. */
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-terracotta) 22%, transparent) 0%,
+    color-mix(in oklab, var(--color-terracotta) 7%, transparent) 55%,
+    transparent 100%
+  );
+  filter: blur(30px);
+}
+
+@utility voile-photo {
+  /* Pour poser du texte sur une photo sans la délaver. */
+  background: linear-gradient(
+    to top,
+    rgb(var(--voile) / 0.94) 0%,
+    rgb(var(--voile) / 0.7) 32%,
+    rgb(var(--voile) / 0.25) 66%,
+    rgb(var(--voile) / 0) 100%
+  );
+}
+
+/* Filet qui se dessine sous un titre quand il entre dans l'écran. */
+.filet-terre {
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-terracotta), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .filet-terre {
+    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+}
+
+.reveler[data-visible="true"] .filet-terre,
+.filet-terre[data-visible="true"] {
+  transform: scaleX(1);
+}
+
+/* Révélation au défilement — le mouvement reste minimal, jamais spectaculaire */
+@media (prefers-reduced-motion: no-preference) {
+  .reveler {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition:
+      opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveler[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes respiration {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(0, -1%, 0);
+  }
+}
+
+@keyframes derive-halo {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate3d(-3%, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate3d(3%, -2%, 0) scale(1.1);
+  }
+}
+
+@keyframes descendre {
+  0% {
+    transform: translateY(-60%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(60%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Zoom d'approche très lent : l'image respire, elle ne « bouge » pas. */
+  .respiration {
+    animation: respiration 32s cubic-bezier(0.33, 0, 0.2, 1) forwards;
+  }
+
+  .derive-halo {
+    animation: derive-halo 16s ease-in-out infinite;
+  }
+
+  .trait-descendant {
+    animation: descendre 2.6s cubic-bezier(0.45, 0, 0.3, 1) infinite;
+  }
+}
+
+/* Le manifeste allume ses mots au fil du défilement. Pour qui a demandé moins
+   d'animations, motion neutralise les déplacements mais pas cette opacité :
+   on la force ici, sinon la phrase resterait à peine lisible. */
+@media (prefers-reduced-motion: reduce) {
+  .mot-manifeste {
+    opacity: 1 !important;
+  }
+}
