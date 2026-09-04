@@ -111,7 +111,29 @@ est gratuit. À créer ou à reprendre en main, avec l'adresse tranchée ci-dess
 
 ---
 
-## 5. Mise en service — dans l'ordre
+## 5. Paysage concurrentiel
+
+Relevé le 4 septembre 2026. C'est la base de tout travail de référencement futur, et
+c'est l'argument commercial le plus solide qui existe : pas de la théorie, des voisines
+positionnées là où Charina est absente.
+
+| Concurrente | Ce qu'elle a |
+|---|---|
+| [Harmonie de l'Écho](https://www.harmoniedelecho.fr/massage-ruoms) — Chauzon, à côté de Ruoms | Un domaine à son nom, et **une page entièrement dédiée au massage à Ruoms** |
+| [L'instant d'ailleurs](https://www.massagesruoms.com/) | Un nom de domaine qui **est** la requête |
+
+Charina, elle, est présente sur [Fresha](https://www.fresha.com/fr/lvp/charina-bien-etre-salavas-vwvPeo)
+— fiche à Salavas 07150 avec son numéro — et sur un sous-domaine `wixsite.com` de deux
+pages. Aucune fiche Google Business trouvée.
+
+**Ce que ça dit de la stratégie** : la requête « massage Ruoms » est déjà tenue par deux
+sites structurés. Le terrain le moins disputé est celui des soins spécifiques — massage
+sportif, ventouses, drainage lymphatique — croisés avec les communes du secteur. C'est
+exactement ce que permet le découpage en une page par soin.
+
+---
+
+## 6. Mise en service — dans l'ordre
 
 - [ ] Obtenir le statut juridique et le SIRET, passer `STATUT_JURIDIQUE.renseigne` à `true`
 - [ ] Trancher l'adresse, l'aligner partout
@@ -126,7 +148,7 @@ est gratuit. À créer ou à reprendre en main, avec l'adresse tranchée ci-dess
 
 ---
 
-## 6. Comment vérifier
+## 7. Comment vérifier
 
 ```bash
 npm install
@@ -143,7 +165,7 @@ fait croire à un débordement. Il n'y en a pas — vérifié, `scrollWidth` = 3
 
 ---
 
-## 7. Réserve technique
+## 8. Réserve technique
 
 `npm audit` remonte deux vulnérabilités, dont une haute, dans **postcss**, tiré
 transitivement par `next@15`. Elles concernent le traitement du CSS **au moment du
