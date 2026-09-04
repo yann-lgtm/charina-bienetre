@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { honeypotDeclenche, ipDuClient, verifierDebit } from "@/lib/anti-spam";
+import {
+  echapper,
+  gabarit,
+  ligne,
+  paragraphe,
+  prenomPresentable,
+  recapitulatif,
+} from "@/lib/courriel";
 import { MARQUE, ZONE } from "@/lib/marque";
 import { SOINS_ACTIFS } from "@/lib/soins";
 
@@ -158,11 +166,32 @@ export async function POST(requete: Request) {
   const destinataire = variable("EMAIL_NOTIFICATION") ?? MARQUE.emailContact;
   const resend = getResend(cleResend);
 
+  /* Chaque envoi part en deux versions : le HTML pour la lecture, le texte
+     pour les clients qui le refusent et pour les filtres anti-spam, qui se
+     méfient d'un message sans équivalent texte. */
   const { error } = await resend.emails.send({
     from: EXPEDITEUR,
     to: destinataire,
     replyTo: email,
     subject: `Demande de rendez-vous — ${nom}`,
+    html: gabarit({
+      titre: "Nouvelle demande de rendez-vous",
+      apercu: `${nom} — ${soin}`,
+      contenu: [
+        recapitulatif(
+          [
+            ligne("Soin", soin),
+            ligne("Téléphone", telephone),
+            ligne("E-mail", email),
+            ligne("Disponibilités", creneaux),
+          ].join(""),
+        ),
+        message
+          ? paragraphe(`<strong style="font-weight:600;">Son message</strong><br>${echapper(message).replace(/\n/g, "<br>")}`)
+          : paragraphe("Aucun message complémentaire."),
+        paragraphe("Réponds directement à cet e-mail pour lui écrire."),
+      ].join(""),
+    }),
     text: [
       `${nom} demande un rendez-vous.`,
       "",
@@ -197,8 +226,23 @@ export async function POST(requete: Request) {
       to: email,
       replyTo: destinataire,
       subject: "Votre demande de rendez-vous est bien arrivée",
+      html: gabarit({
+        titre: "Votre demande est bien arrivée",
+        apercu: `Charina vous rappelle sous 24 à 48 h. ${soin}.`,
+        contenu: [
+          paragraphe(
+            `Bonjour ${echapper(prenomPresentable(nom))}, votre demande est bien arrivée. Charina vous rappelle en général sous 24 à 48 h pour caler le créneau et vous donner l’adresse exacte.`,
+          ),
+          recapitulatif(
+            [ligne("Soin souhaité", soin), ligne("Vos disponibilités", creneaux)].join(""),
+          ),
+          paragraphe(
+            `Si c’est urgent, le téléphone reste le plus rapide : <a href="tel:${MARQUE.telephoneLien}" style="color:#9d5740;text-decoration:none;font-weight:600;">${MARQUE.telephone}</a>.`,
+          ),
+        ].join(""),
+      }),
       text: [
-        `Bonjour ${nom.split(" ")[0]},`,
+        `Bonjour ${prenomPresentable(nom)},`,
         "",
         "Votre demande de rendez-vous est bien arrivée. Charina vous rappelle en général sous 24 à 48 h pour caler le créneau et vous donner l’adresse exacte.",
         "",
