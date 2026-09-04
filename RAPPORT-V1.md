@@ -1,123 +1,154 @@
-# Site Charina Bien-Être — V1
+# Site Charina Bien-Être — état des lieux
 
-**Date** : 3 septembre 2026
-**Repo** : `yann-lgtm/charina-bienetre` — branche `claude/charina-bienetre-v1-kdhzl7`
-**Commanditaire** : Yann Cœuru — Cœuru Atelier Web
-**Cliente finale** : Charina Duguet, praticienne en soins corporels, sud Ardèche
+**Dernière mise à jour : 4 septembre 2026**
+**Cliente** : Charina Duguet, praticienne en soins corporels, sud Ardèche
+**Réalisation** : Cœuru Atelier Web — Yann Cœuru
 
----
-
-## 1. En une phrase
-
-Le site est construit, buildé et testé dans son repo dédié : neuf pages, cinq soins rédigés,
-référencement local complet, formulaire de demande de rendez-vous fonctionnel. Il manque trois
-informations que seule Charina peut donner (§5) avant la mise en ligne.
+> Ce document est le point d'entrée du projet. Les règles de travail sont dans
+> `CLAUDE.md`. Les tarifs et le modèle d'abonnement vivent dans le dépôt de l'atelier,
+> `yann-lgtm/coeuru-web`, fichier `MODELE-ECONOMIQUE.md`.
 
 ---
 
-## 2. Ce que cette étape a fait
+## 1. Où en est le site
 
-Le code avait été écrit dans un sous-dossier de `coeuru` (`charina-bienetre/`, PR #763,
-mergée) faute d'accès au repo dédié à ce moment-là. Cette étape l'**extrait vers son
-repo propre**, comme prévu au §6 du rapport précédent :
+**En ligne, fonctionnel, pas encore public.**
 
-- 38 fichiers déplacés à la racine de `yann-lgtm/charina-bienetre`
-- `turbopack.root` retiré de `next.config.ts` — il n'existait que pour empêcher Turbopack de
-  remonter au lockfile de coeuru et de compiler ses `middleware.ts`, `instrumentation.ts` et
-  `sentry.*.config.ts`. Sans objet ici.
-- README d'entrée écrit (démarrage, variables, où intervenir)
-- Ce rapport, à la racine comme demandé au brief
-
-Le projet était déjà autonome (son `package.json`, son `tsconfig`, aucun import vers coeuru) :
-l'extraction n'a demandé aucune réécriture de code applicatif.
-
-**Reste à faire côté coeuru** : supprimer le dossier `charina-bienetre/` désormais dupliqué,
-et ses deux références (`tsconfig.json` ligne 42, `.vercelignore` ligne 3). Fait dans une PR
-séparée sur `coeuru`, à merger **après** celle-ci.
-
----
-
-## 3. Ce qui est livré
-
-### Pages — 9 routes publiques, 17 routes buildées
-
-| Route | Contenu |
+| | |
 |---|---|
-| `/` | Hero, trois piliers différenciants, manifeste, aperçu des cinq soins, bloc praticienne, zone desservie, appel à réserver |
-| `/soins` | Les cinq soins en cartes + précautions générales |
-| `/soins/[slug]` | Cinq pages détail prégénérées : déroulé, pour qui, bienfaits, précautions, tarif |
-| `/a-propos` | Bio en trois chapitres : origines philippines et Hilot, sa façon de travailler, son intention |
-| `/reservation` | Formulaire + « ce qui se passe ensuite » |
-| `/mentions-legales`, `/politique-confidentialite` | Obligatoires, en `noindex` |
-| `/sitemap.xml`, `/robots.txt` | Site **indexable** dès la mise en ligne |
+| Production | https://charina-bienetre.vercel.app |
+| Dépôt | `yann-lgtm/charina-bienetre` |
+| Projet Vercel | `charina-bienetre`, branche de production `main`, région `cdg1` (Paris) |
+| Accès | protégé par l'authentification Vercel — invisible pour Google et pour le public |
+| Domaine | `charina-bienetre.fr` **non acheté**, placeholder dans `MARQUE.domaine` |
 
-### Contenu
+Le formulaire de demande de rendez-vous a été **testé de bout en bout en production** le
+4 septembre : envoi, réception chez Yann, accusé de réception à la cliente, notification
+ntfy. Zéro erreur dans les journaux.
 
-2 400 mots originaux sur les cinq soins (437 à 574 mots chacun), plus la bio et les pages
-légales. Registre tenu : sensations et confort (« soulage », « apaise »), jamais d'effet
-thérapeutique — Charina n'est pas professionnelle de santé.
+### Ce qui est livré
 
-L'angle rédactionnel repose sur ce qui la distingue vraiment : **elle travaille par le
-mouvement, pas par la pression**. C'est le titre du site (« Pas la force. Le mouvement. »),
-le premier pilier de l'accueil et le fil de chaque page de soin.
+Neuf pages publiques : accueil, vue d'ensemble des soins, cinq pages de soin détaillées,
+parcours, demande de rendez-vous, plus les deux pages légales et le sitemap.
 
-### Référencement local
+Le référencement local est en place : titres calibrés, JSON-LD `HealthAndBeautyBusiness`,
+`Service` par soin, `BreadcrumbList`, sitemap et robots. Le type `HealthAndBeautyBusiness`
+a été retenu plutôt que `MassageTherapist` : ce dernier descend de `MedicalBusiness` et
+présenterait Charina comme professionnelle de santé, ce qu'elle n'est pas.
 
-- Neuf titres entre 46 et 59 caractères (cible 41-60 du brief)
-- JSON-LD : `HealthAndBeautyBusiness` sur l'accueil et la réservation, `Service` par soin,
-  `BreadcrumbList` sur les pages profondes
-- Type `HealthAndBeautyBusiness` retenu plutôt que `MassageTherapist` : ce dernier descend de
-  `MedicalBusiness` et présenterait Charina comme professionnelle de santé
-- `areaServed` : Ruoms, Vallon-Pont-d'Arc, Salavas, sud Ardèche — quatre lieux réels, pas de
-  liste de communes gonflée
-- Tant que le statut juridique est vide, l'adresse postale est **omise** du JSON-LD plutôt
-  qu'inventée
-
-### Formulaire
-
-Honeypot + limitation de débit (5/h par IP, clé `route:ip` reprise de coeuru) → e-mail à
-Charina via Resend → accusé de réception à la cliente → notification ntfy. La demande est
-présentée comme une demande de rappel, pas une réservation ferme : rien n'est débité.
-Un échec ntfy ne fait jamais échouer la demande — l'e-mail, lui, est déjà parti.
+Les e-mails transactionnels sont habillés à la charte du site (`lib/courriel.ts`), en HTML
+avec version texte, contenu échappé, et déclarations de thème clair.
 
 ---
 
-## 4. Deux écarts au brief, à reconfirmer
+## 2. Ce qui a été corrigé, et pourquoi
 
-Ils viennent de la session précédente, qui les note comme validés oralement le 3 septembre.
-Comme le brief transmis porte la même date et dit l'inverse, ils sont remontés ici plutôt
-que tranchés silencieusement.
+Ces corrections expliquent des choix de code qui paraîtraient arbitraires sans elles.
 
-| Sujet | Brief | Code actuel |
-|---|---|---|
-| Base de données | Projet Supabase dédié, prix jamais en dur | Aucune base : les soins vivent dans `lib/soins.ts` (typé), les demandes partent en e-mail + ntfy |
-| Titre de concours | « Interdit d'écrire *Championne de France* tant que non confirmé » | `DISTINCTION` (`lib/marque.ts`) affiche « Championne de France de massage 2025 · Prix de l'Innovation » |
-
-Les deux sont isolés : revenir au brief coûte une constante pour le titre, et une route API
-+ trois requêtes pour la base. **À trancher avant la mise en ligne** — le second point
-engage la responsabilité de Charina si le titre exact diffère.
+| Corrigé | Pourquoi ça comptait |
+|---|---|
+| **Origine personnelle inventée** | Le site affirmait que Charina était née aux Philippines et y avait appris le Hilot en famille. Faux. Le texte ne parle plus que de l'origine des techniques. |
+| **Variable d'environnement vide** | Une variable Vercel sans valeur vaut `""` : `??` ne la rattrape pas, et le destinataire partait vide chez Resend. Fonction `variable()` centralisée. |
+| **Prénom en minuscule** | « Bonjour yann » dans le premier e-mail reçu par la cliente. Recapitalisation, y compris dans l'objet et la notification. |
+| **Mode sombre des messageries** | Le crème virait au brun. Déclarations `color-scheme` pour Apple, surcharges `data-ogsb`/`data-ogsc` pour Outlook. Outlook mobile résiste : c'est son choix, pas un défaut. |
+| **Injection dans les e-mails** | Le champ message, passé en HTML, permettait d'injecter du contenu dans un courrier signé « Charina Bien-Être ». Échappement systématique. |
 
 ---
 
-## 5. Ce qu'il manque — trois informations à demander à Charina
+## 3. Ce qui bloque la mise en ligne publique
 
-Toutes centralisées dans `lib/marque.ts`, marquées `[À COMPLÉTER]`.
+**Un seul point est bloquant : le statut juridique.**
 
-1. **Statut juridique** — dénomination exacte, forme juridique, SIRET. Les mentions légales
-   affichent aujourd'hui un encart d'attente au lieu d'inventer. **Obligatoire avant
-   l'ouverture publique.** Passer `STATUT_JURIDIQUE.renseigne` à `true` bascule
-   automatiquement la page et réinjecte l'adresse dans le JSON-LD.
-2. **Lieu de pratique** — cabinet fixe, domicile, les deux ? La réponse change la page
-   Réservation et la fiche Google Business.
-3. **Photos** — aucune image stock, comme demandé. Les emplacements réservent déjà le bon
-   ratio (composant `PhotoReservee`) et **documentent la photo attendue** dans l'attribut
-   `data-photo-attendue` : c'est la liste de courses du shooting, lisible dans le code.
-
-Le domaine `charina-bienetre.fr` reste un placeholder non acheté (`MARQUE.domaine`).
+Sans dénomination, forme juridique et SIRET, les mentions légales ne sont pas conformes
+et le site ne peut pas ouvrir au public. Tant que `STATUT_JURIDIQUE.renseigne` vaut
+`false`, la page affiche un encart d'attente et l'adresse postale est **omise** du
+JSON-LD plutôt qu'inventée. Passer le drapeau à `true` bascule automatiquement les deux.
 
 ---
 
-## 6. Comment vérifier
+## 4. Questions ouvertes — à trancher avec Charina
+
+### L'adresse du lieu de pratique ⚠️
+
+Trois sources, trois réponses différentes :
+
+| Source | Adresse |
+|---|---|
+| Le site actuel | Salavas (07150) — c'est ce que dit `ZONE` et ce qui part dans le JSON-LD |
+| Son ancien site Wix | 6 place du Général de Gaulle, **Ruoms** (07120) — ancien cabinet médical |
+| Sa fiche Fresha | **Salavas** (07150) |
+
+À trancher avec elle : **où reçoit-elle réellement les clientes ?** Y a-t-elle un accès
+permanent ou loue-t-elle une salle quelques jours ? Se déplace-t-elle à domicile ?
+
+L'adresse du site, celle de la fiche Google Business et celle des mentions légales
+doivent être **identiques au caractère près** — c'est un critère de référencement local.
+
+### Le titre de concours ⚠️
+
+`DISTINCTION` affiche « Championne de France de massage 2025 · Prix de l'Innovation ».
+Le brief initial mentionnait « Médaillée d'Or — Championnat de Massage **Occitanie**,
+Prix Innovation ». Les recherches confirment l'existence d'un Championnat Occitanie 2025
+(première édition, 29-30 novembre 2025 à Pérols) mais ne relient Charina à aucun titre
+national. **L'intitulé exact est à confirmer, diplôme en main.**
+
+### Sa biographie
+
+À réécrire avec ses mots : où elle a appris, ce qui l'a menée au massage. Le texte actuel
+est volontairement neutre depuis le retrait de l'origine inventée.
+
+### Les photos
+
+Trois questions distinctes, et la troisième est celle qu'on oublie :
+qui les a prises et détient les droits · a-t-elle les fichiers originaux · les personnes
+massées ont-elles consenti à une **nouvelle** publication ?
+
+### La fiche Google Business
+
+Aucune fiche trouvée pour Charina Bien-Être. Le pack local — les trois établissements
+affichés sur la carte — pèse souvent plus que tout le reste en recherche locale, et il
+est gratuit. À créer ou à reprendre en main, avec l'adresse tranchée ci-dessus.
+
+---
+
+## 5. Paysage concurrentiel
+
+Relevé le 4 septembre 2026. C'est la base de tout travail de référencement futur, et
+c'est l'argument commercial le plus solide qui existe : pas de la théorie, des voisines
+positionnées là où Charina est absente.
+
+| Concurrente | Ce qu'elle a |
+|---|---|
+| [Harmonie de l'Écho](https://www.harmoniedelecho.fr/massage-ruoms) — Chauzon, à côté de Ruoms | Un domaine à son nom, et **une page entièrement dédiée au massage à Ruoms** |
+| [L'instant d'ailleurs](https://www.massagesruoms.com/) | Un nom de domaine qui **est** la requête |
+
+Charina, elle, est présente sur [Fresha](https://www.fresha.com/fr/lvp/charina-bien-etre-salavas-vwvPeo)
+— fiche à Salavas 07150 avec son numéro — et sur un sous-domaine `wixsite.com` de deux
+pages. Aucune fiche Google Business trouvée.
+
+**Ce que ça dit de la stratégie** : la requête « massage Ruoms » est déjà tenue par deux
+sites structurés. Le terrain le moins disputé est celui des soins spécifiques — massage
+sportif, ventouses, drainage lymphatique — croisés avec les communes du secteur. C'est
+exactement ce que permet le découpage en une page par soin.
+
+---
+
+## 6. Mise en service — dans l'ordre
+
+- [ ] Obtenir le statut juridique et le SIRET, passer `STATUT_JURIDIQUE.renseigne` à `true`
+- [ ] Trancher l'adresse, l'aligner partout
+- [ ] Confirmer l'intitulé de la distinction, corriger `DISTINCTION` si besoin
+- [ ] Acheter `charina-bienetre.fr` chez OVH, DNS vers Vercel, mettre à jour `MARQUE.domaine` et `MARQUE.siteUrl`
+- [ ] Créer l'adresse `contact@charina-bienetre.fr` — l'adresse yahoo actuelle n'apparaît nulle part
+- [ ] Vérifier le domaine chez Resend, puis basculer `EXPEDITEUR` dans `app/api/reservation/route.ts` : en V1 l'expéditeur est `contact@coeuru.com`, seul domaine vérifié
+- [ ] Shooting photo, remplacer les `PhotoReservee` au même ratio
+- [ ] Créer ou rattacher la fiche Google Business
+- [ ] Retirer la protection Vercel le jour de l'ouverture publique
+- [ ] Soumettre le sitemap dans la Search Console
+
+---
+
+## 7. Comment vérifier
 
 ```bash
 npm install
@@ -126,63 +157,17 @@ npm run build      # vert, 17 routes
 npm run start      # http://localhost:3000
 ```
 
-### Vérifié dans ce conteneur, après extraction
-
-| Vérification | Résultat |
-|---|---|
-| `npx tsc --noEmit` | propre |
-| `npm run build` | vert, 17 routes, 5 pages de soins prégénérées |
-| 14 routes testées (9 pages + sitemap + robots + 404) | toutes au bon code |
-| JSON-LD sur l'accueil | `HealthAndBeautyBusiness`, `Person`, `Place`, `PostalAddress`, `Offer` |
-| `robots.txt` | `Allow: /`, `Disallow: /api/`, sitemap déclaré |
-| API — corps vide | 400 |
-| API — honeypot rempli | 200, demande jetée en silence |
-| API — demande valide sans `RESEND_API_KEY` | 503 + numéro de téléphone en repli |
-
-### Non vérifiable ici
-
-- **L'envoi réel d'e-mail** : pas de `RESEND_API_KEY` dans ce conteneur. La chaîne est
-  validée jusqu'à l'appel Resend. À refaire en préproduction avec les vraies clés.
-- **La notification ntfy** : `ntfy.sh` est bloqué par la politique réseau du conteneur.
-
-### Une réserve technique
-
-`npm audit` remonte 2 vulnérabilités (1 haute) dans **postcss**, tiré transitivement par
-`next@15`. Elles concernent le traitement de CSS **au moment du build**, pas le site servi.
-Le correctif impose `next@16` (changement majeur) : à traiter lors d'une montée de version
-volontaire, pas dans cette PR.
+**Pour capturer le site** : les animations au défilement laissent les pages vides en
+capture headless. Passer `--force-prefers-reduced-motion` à Chromium. Et pour une vraie
+capture mobile, `--window-size` ne suffit pas : il faut l'émulation par le protocole de
+débogage (`Emulation.setDeviceMetricsOverride`), sinon le rendu est tronqué à droite et
+fait croire à un débordement. Il n'y en a pas — vérifié, `scrollWidth` = 390 à 390 px.
 
 ---
 
-## 7. Mise en service — à faire dans l'ordre
+## 8. Réserve technique
 
-- [ ] Merger cette PR, puis la PR de nettoyage sur `coeuru`
-- [ ] Trancher les deux écarts du §4
-- [ ] Récupérer auprès de Charina les trois informations du §5
-- [ ] Vérifier la disponibilité de `charina-bienetre.fr` et l'acheter chez OVH
-- [ ] Créer le projet Vercel dédié, variables au niveau **projet** : `RESEND_API_KEY`,
-      `EMAIL_NOTIFICATION`, `NTFY_TOPIC` (voir `.env.example`)
-- [ ] Choisir un topic ntfy long et non devinable — un topic est public pour qui connaît son nom
-- [ ] DNS OVH → Vercel, puis mettre à jour `MARQUE.domaine` et `MARQUE.siteUrl`
-- [ ] **Vérifier le domaine de Charina chez Resend.** En V1 l'expéditeur est
-      `contact@coeuru.com` : l'accusé arrive donc chez la cliente sous le nom
-      « Charina Bien-Être » mais avec une adresse technique coeuru.com. Ça fonctionne, mais
-      c'est le premier point à corriger après la mise en ligne (une constante dans la route API).
-- [ ] Créer l'adresse `contact@charina-bienetre.fr` (l'adresse yahoo actuelle n'apparaît nulle part)
-- [ ] Faire le shooting et remplacer les `PhotoReservee` par des `<Image>` au même ratio
-- [ ] Test de bout en bout en préproduction : formulaire → e-mail reçu → accusé reçu → ntfy reçu
-- [ ] Créer ou rattacher la fiche Google Business Profile, avec la même adresse que le JSON-LD
-- [ ] Soumettre le sitemap dans la Search Console
-
----
-
-## 8. Où intervenir plus tard
-
-| Besoin | Fichier |
-|---|---|
-| Changer un prix, une durée, un texte de soin | `lib/soins.ts` |
-| Nom, domaine, téléphone, réseaux, titre de concours, statut juridique | `lib/marque.ts` |
-| Bio, piliers, précautions, étapes de réservation | `lib/contenu.ts` |
-| Couleurs, typographie, grain, filets | `app/globals.css` |
-| Données structurées | `lib/seo.tsx` |
-| Circuit d'une demande (e-mail, ntfy, futur passage en base) | `app/api/reservation/route.ts` |
+`npm audit` remonte deux vulnérabilités, dont une haute, dans **postcss**, tiré
+transitivement par `next@15`. Elles concernent le traitement du CSS **au moment du
+build**, pas le site servi. Le correctif impose `next@16`, changement majeur : à traiter
+lors d'une montée de version volontaire.
