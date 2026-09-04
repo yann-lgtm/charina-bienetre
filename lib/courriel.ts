@@ -84,20 +84,20 @@ export function prenomPresentable(nomComplet: string): string {
 export function ligne(intitule: string, valeur: string): string {
   return `
     <tr>
-      <td style="padding:0 0 10px;font-family:${SANS};font-size:12px;line-height:22px;letter-spacing:0.08em;text-transform:uppercase;color:${COULEURS.encreDiscret};white-space:nowrap;vertical-align:top;">${echapper(intitule)}</td>
-      <td style="padding:0 0 10px 20px;font-family:${SANS};font-size:15px;line-height:22px;color:${COULEURS.encre};vertical-align:top;">${echapper(valeur)}</td>
+      <td class="intitule" style="padding:0 0 10px;font-family:${SANS};font-size:12px;line-height:22px;letter-spacing:0.08em;text-transform:uppercase;color:${COULEURS.encreDiscret};white-space:nowrap;vertical-align:top;">${echapper(intitule)}</td>
+      <td class="valeur" style="padding:0 0 10px 20px;font-family:${SANS};font-size:15px;line-height:22px;color:${COULEURS.encre};vertical-align:top;">${echapper(valeur)}</td>
     </tr>`;
 }
 
 /** Paragraphe courant. */
 export function paragraphe(texte: string): string {
-  return `<p style="margin:0 0 18px;font-family:${SANS};font-size:15px;line-height:1.65;color:${COULEURS.encreDoux};">${texte}</p>`;
+  return `<p class="texte" style="margin:0 0 18px;font-family:${SANS};font-size:15px;line-height:1.65;color:${COULEURS.encreDoux};">${texte}</p>`;
 }
 
 /** Encadré récapitulatif, sur fond sable comme les sections du site. */
 export function recapitulatif(lignes: string): string {
   return `
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${COULEURS.sable};border-radius:2px;margin:0 0 24px;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="encadre" style="background-color:${COULEURS.sable};border-radius:2px;margin:0 0 24px;">
       <tr><td style="padding:22px 24px;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0">${lignes}</table>
       </td></tr>
@@ -133,19 +133,35 @@ export function gabarit({
 <title>${echapper(titre)}</title>
 <style>
   :root { color-scheme: only light; supported-color-schemes: light; }
+
+  /* Outlook (iOS, Android, outlook.com) impose son propre mode sombre et
+     ignore les déclarations ci-dessus. Il signale en revanche les éléments
+     qu'il a repeints par les attributs data-ogsb (fond) et data-ogsc (texte).
+     On les cible pour rétablir la palette. Selon les versions, l'attribut se
+     pose sur l'élément lui-même ou sur un ancêtre : les deux formes sont
+     écrites. Sans effet sur les autres messageries, qui ne posent jamais ces
+     attributs. */
+  [data-ogsb] .corps, .corps[data-ogsb] { background-color: ${COULEURS.fond} !important; }
+  [data-ogsb] .carte, .carte[data-ogsb] { background-color: ${COULEURS.carte} !important; }
+  [data-ogsb] .encadre, .encadre[data-ogsb] { background-color: ${COULEURS.sable} !important; }
+  [data-ogsc] .titre, .titre[data-ogsc] { color: ${COULEURS.encre} !important; }
+  [data-ogsc] .texte, .texte[data-ogsc] { color: ${COULEURS.encreDoux} !important; }
+  [data-ogsc] .valeur, .valeur[data-ogsc] { color: ${COULEURS.encre} !important; }
+  [data-ogsc] .intitule, .intitule[data-ogsc] { color: ${COULEURS.encreDiscret} !important; }
+  [data-ogsc] .accent, .accent[data-ogsc] { color: ${COULEURS.terracotta} !important; }
 </style>
 </head>
-<body style="margin:0;padding:0;background-color:${COULEURS.fond};">
+<body class="corps" style="margin:0;padding:0;background-color:${COULEURS.fond};">
   <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${echapper(apercu)}</div>
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${COULEURS.fond};">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="corps" width="100%" style="background-color:${COULEURS.fond};">
     <tr><td align="center" style="padding:32px 16px;">
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:560px;background-color:${COULEURS.carte};">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="carte" style="max-width:560px;background-color:${COULEURS.carte};">
         <tr><td style="padding:40px 32px 32px;">
 
-          <p style="margin:0 0 28px;font-family:${SANS};font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:${COULEURS.terracotta};">${echapper(MARQUE.nom)}</p>
+          <p class="accent" style="margin:0 0 28px;font-family:${SANS};font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:${COULEURS.terracotta};">${echapper(MARQUE.nom)}</p>
 
-          <h1 style="margin:0 0 8px;font-family:${SERIF};font-size:27px;line-height:1.25;font-weight:400;color:${COULEURS.encre};">${echapper(titre)}</h1>
+          <h1 class="titre" style="margin:0 0 8px;font-family:${SERIF};font-size:27px;line-height:1.25;font-weight:400;color:${COULEURS.encre};">${echapper(titre)}</h1>
 
           <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="48" style="margin:0 0 26px;"><tr><td style="border-top:1px solid ${COULEURS.terracotta};font-size:0;line-height:0;">&nbsp;</td></tr></table>
 
