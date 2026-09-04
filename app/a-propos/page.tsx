@@ -9,7 +9,7 @@ import { DonneesStructurees, filAriane } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Praticienne en massage — Ruoms, Vallon-Pont-d’Arc",
-  description: `${MARQUE.praticienne}, ${DISTINCTION.court.toLowerCase()} : origines philippines, Hilot traditionnel, huit techniques. Elle reçoit à ${ZONE.villePrincipale}, près de Ruoms.`,
+  description: `${MARQUE.praticienne}, ${DISTINCTION.court.toLowerCase()} : Hilot philippin, lomi-lomi, ventouses, drainage — huit techniques. Elle reçoit à ${ZONE.villePrincipale}, près de Ruoms.`,
   alternates: { canonical: "/a-propos" },
 };
 

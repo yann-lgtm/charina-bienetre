@@ -78,10 +78,10 @@ export default function Accueil() {
           <Reveler delai={0.1}>
             <p className="capitales text-terracotta">La praticienne</p>
             <h2 className="mt-6 text-balance font-titre text-[clamp(1.9rem,4vw,3rem)] font-light leading-[1.08] tracking-[-0.03em] text-encre">
-              {MARQUE.praticienne}, née aux Philippines, formée à huit techniques.
+              {MARQUE.praticienne}, formée à huit techniques venues d’autant de traditions.
             </h2>
             <p className="mt-7 leading-relaxed text-encre-doux">
-              Le Hilot appris à la maison, puis le suédois, le californien, le lomi-lomi,
+              Le Hilot philippin, le suédois, le californien, le lomi-lomi,
               les étirements thaï, le travail profond, les ventouses, le drainage. Elle a
               cessé de les pratiquer séparément le jour où elle a compris que ce qui
               l’intéressait, c’était de les faire tenir ensemble.
