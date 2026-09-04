@@ -16,7 +16,7 @@ export const PILIERS = [
   {
     titre: "Huit techniques, un seul soin",
     texte:
-      "Le Hilot de ses origines philippines, le suédois, le californien, le lomi-lomi, les étirements thaï, le travail profond, les ventouses, le drainage. Elles ne sont pas proposées séparément : elles sont assemblées pour vous, le jour même.",
+      "Le Hilot philippin, le suédois, le californien, le lomi-lomi, les étirements thaï, le travail profond, les ventouses, le drainage. Elles ne sont pas proposées séparément : elles sont assemblées pour vous, le jour même.",
   },
   {
     titre: `${DISTINCTION.court}`,
@@ -28,13 +28,13 @@ export const PILIERS = [
 /** Bio de la page À propos, en blocs pour aérer la lecture sur mobile. */
 export const BIO = {
   chapeau:
-    "Praticienne en soins corporels à Salavas, entre Ruoms et Vallon-Pont-d’Arc. Née aux Philippines, formée à plus de huit techniques, et convaincue qu’un corps se dénoue par le mouvement bien plus que par la force.",
+    "Praticienne en soins corporels à Salavas, entre Ruoms et Vallon-Pont-d’Arc. Formée à plus de huit techniques venues d’autant de traditions, et convaincue qu’un corps se dénoue par le mouvement bien plus que par la force.",
   sections: [
     {
       titre: "D’où viennent ses mains",
       paragraphes: [
-        "Charina Duguet est née aux Philippines, où le massage n’est pas un luxe de fin de semaine mais un geste de famille. Le Hilot, la médecine traditionnelle philippine, s’y transmet à la maison : on masse un enfant qui a mal au ventre, une grand-mère qui ne dort plus, un frère rentré du champ. C’est là qu’elle a appris à toucher, bien avant d’en faire un métier.",
-        "Le reste est venu par la formation, technique après technique : le suédois et ses longs mouvements, le californien, le lomi-lomi hawaïen, les étirements thaï, le travail profond, les ventouses, le drainage. Plus de huit approches, qu’elle a cessé de pratiquer séparément le jour où elle a compris que ce qui l’intéressait, c’était de les faire tenir ensemble.",
+        "Charina Duguet n’a pas appris un massage : elle en a appris huit. Le Hilot d’abord, médecine traditionnelle philippine, où l’on dénoue les tensions par des mouvements longs plutôt que par la pression. Puis le suédois et ses grandes enveloppes, le californien, le lomi-lomi hawaïen, les étirements thaï, le travail profond, les ventouses, le drainage.",
+        "Chacune vient d’une tradition différente, avec sa logique et sa façon de poser la main. Elle a cessé de les pratiquer séparément le jour où elle a compris que ce qui l’intéressait, c’était de les faire tenir ensemble — et c’est de là qu’est né le soin qui porte son nom.",
       ],
     },
     {
