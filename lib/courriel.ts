@@ -73,12 +73,19 @@ export function prenomPresentable(nomComplet: string): string {
   return motPresentable(nomComplet.trim().split(/\s+/)[0] ?? "");
 }
 
-/** Une ligne du bloc récapitulatif : intitulé discret, valeur lisible. */
+/**
+ * Une ligne du bloc récapitulatif : intitulé discret, valeur lisible.
+ *
+ * Les deux colonnes portent la même hauteur de ligne en pixels. Sans ça,
+ * l'intitulé en corps 12 et la valeur en corps 15 alignés par le haut
+ * donnaient deux lignes de base décalées, et l'intitulé flottait au-dessus
+ * de sa valeur.
+ */
 export function ligne(intitule: string, valeur: string): string {
   return `
     <tr>
-      <td style="padding:0 0 10px;font-family:${SANS};font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:${COULEURS.encreDiscret};white-space:nowrap;vertical-align:top;">${echapper(intitule)}</td>
-      <td style="padding:0 0 10px 20px;font-family:${SANS};font-size:15px;line-height:1.5;color:${COULEURS.encre};vertical-align:top;">${echapper(valeur)}</td>
+      <td style="padding:0 0 10px;font-family:${SANS};font-size:12px;line-height:22px;letter-spacing:0.08em;text-transform:uppercase;color:${COULEURS.encreDiscret};white-space:nowrap;vertical-align:top;">${echapper(intitule)}</td>
+      <td style="padding:0 0 10px 20px;font-family:${SANS};font-size:15px;line-height:22px;color:${COULEURS.encre};vertical-align:top;">${echapper(valeur)}</td>
     </tr>`;
 }
 
