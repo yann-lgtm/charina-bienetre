@@ -6,6 +6,7 @@ import {
   gabarit,
   ligne,
   paragraphe,
+  nomPresentable,
   prenomPresentable,
   recapitulatif,
 } from "@/lib/courriel";
@@ -163,6 +164,9 @@ export async function POST(requete: Request) {
     );
   }
 
+  /* Le nom sert à l'affichage partout : objet, corps, notification poussée.
+     La saisie brute donnait « Demande de rendez-vous — yann Coeuru ». */
+  const nomAffiche = nomPresentable(nom);
   const destinataire = variable("EMAIL_NOTIFICATION") ?? MARQUE.emailContact;
   const resend = getResend(cleResend);
 
@@ -173,10 +177,10 @@ export async function POST(requete: Request) {
     from: EXPEDITEUR,
     to: destinataire,
     replyTo: email,
-    subject: `Demande de rendez-vous — ${nom}`,
+    subject: `Demande de rendez-vous — ${nomAffiche}`,
     html: gabarit({
       titre: "Nouvelle demande de rendez-vous",
-      apercu: `${nom} — ${soin}`,
+      apercu: `${nomAffiche} — ${soin}`,
       contenu: [
         recapitulatif(
           [
@@ -193,7 +197,7 @@ export async function POST(requete: Request) {
       ].join(""),
     }),
     text: [
-      `${nom} demande un rendez-vous.`,
+      `${nomAffiche} demande un rendez-vous.`,
       "",
       `Soin : ${soin}`,
       `Téléphone : ${telephone}`,
@@ -261,7 +265,7 @@ export async function POST(requete: Request) {
     });
 
   const notification = notifierNtfy(
-    `Rendez-vous — ${nom}`,
+    `Rendez-vous — ${nomAffiche}`,
     `${soin}\n${telephone}\n${creneaux}`,
   );
 

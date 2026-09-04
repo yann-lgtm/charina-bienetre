@@ -56,12 +56,21 @@ export function echapper(valeur: string): string {
  * minuscules avant recapitalisation ; sinon on ne touche qu'aux initiales,
  * pour ne pas abîmer un « McDonald » ni un « d'Arc ».
  */
-export function prenomPresentable(nomComplet: string): string {
-  const prenom = nomComplet.trim().split(/\s+/)[0] ?? "";
-  const base = prenom === prenom.toUpperCase() ? prenom.toLowerCase() : prenom;
+function motPresentable(mot: string): string {
+  const base = mot === mot.toUpperCase() ? mot.toLowerCase() : mot;
   return base.replace(/(^|[-'’])(\p{L})/gu, (_, separateur, lettre: string) =>
     separateur + lettre.toUpperCase(),
   );
+}
+
+/** Nom complet, pour l'objet du message et le corps de la notification. */
+export function nomPresentable(nomComplet: string): string {
+  return nomComplet.trim().split(/\s+/).map(motPresentable).join(" ");
+}
+
+/** Prénom seul, pour la formule d'appel de l'accusé de réception. */
+export function prenomPresentable(nomComplet: string): string {
+  return motPresentable(nomComplet.trim().split(/\s+/)[0] ?? "");
 }
 
 /** Une ligne du bloc récapitulatif : intitulé discret, valeur lisible. */
@@ -105,7 +114,20 @@ export function gabarit({
 }): string {
   return `<!doctype html>
 <html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${echapper(titre)}</title></head>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Sans ces deux déclarations, Mail sur iOS et macOS applique sa propre
+     inversion en mode sombre : le crème vire au brun sale et le terracotta
+     se délave. Les annoncer désactive l'inversion et laisse le message tel
+     qu'il a été dessiné. -->
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>${echapper(titre)}</title>
+<style>
+  :root { color-scheme: only light; supported-color-schemes: light; }
+</style>
+</head>
 <body style="margin:0;padding:0;background-color:${COULEURS.fond};">
   <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${echapper(apercu)}</div>
   <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:${COULEURS.fond};">
