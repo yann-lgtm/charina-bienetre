@@ -4,11 +4,30 @@ import { honeypotDeclenche, ipDuClient, verifierDebit } from "@/lib/anti-spam";
 import { MARQUE, ZONE } from "@/lib/marque";
 import { SOINS_ACTIFS } from "@/lib/soins";
 
+/**
+ * Lit une variable d’environnement en traitant « vide » comme « absente ».
+ *
+ * Deux pièges que ce détour évite, tous deux rencontrés en production :
+ * — sur Vercel, une variable créée sans valeur vaut `""` et non `undefined`.
+ *   `??` ne la rattrape donc pas, et l’adresse vide partait telle quelle chez
+ *   Resend ;
+ * — une clé collée depuis un presse-papier traîne souvent une espace ou un
+ *   retour à la ligne, ce qui fait échouer l’authentification sans rien dire.
+ *
+ * L’accès par clé dynamique est volontaire : `process.env.NOM` écrit en dur
+ * peut être remplacé par sa valeur à la compilation, ce qui fige au build ce
+ * qui devrait être lu à l’exécution. Ici on lit toujours la valeur réelle.
+ */
+function variable(nom: string): string | undefined {
+  const valeur = process.env[nom]?.trim();
+  return valeur ? valeur : undefined;
+}
+
 /* Lazy : instancier Resend au chargement du fichier ferait planter le build
    Vercel, où RESEND_API_KEY n’existe pas encore. Même leçon que sur coeuru,
    où treize routes avaient dû être corrigées pour cette raison. */
-function getResend() {
-  return new Resend(process.env.RESEND_API_KEY);
+function getResend(cle: string) {
+  return new Resend(cle);
 }
 
 /**
@@ -29,10 +48,10 @@ const EXPEDITEUR = `${MARQUE.nom} <contact@coeuru.com>`;
 
 /** Notification poussée sur le téléphone. Sans topic configuré, on n’échoue pas. */
 async function notifierNtfy(titre: string, corps: string) {
-  const topic = process.env.NTFY_TOPIC;
+  const topic = variable("NTFY_TOPIC");
   if (!topic) return;
 
-  const serveur = process.env.NTFY_URL ?? "https://ntfy.sh";
+  const serveur = variable("NTFY_URL") ?? "https://ntfy.sh";
 
   try {
     await fetch(`${serveur}/${topic}`, {
@@ -119,8 +138,15 @@ export async function POST(requete: Request) {
     ? soinDemande
     : "À définir avec Charina";
 
-  if (!process.env.RESEND_API_KEY) {
-    console.error("reservation : RESEND_API_KEY absente");
+  const cleResend = variable("RESEND_API_KEY");
+
+  if (!cleResend) {
+    /* Distinguer les deux cas : « absente » envoie chercher la variable,
+       « vide » envoie vérifier sa valeur puis redéployer — une variable
+       modifiée n’est prise en compte qu’au déploiement suivant. */
+    const cause =
+      process.env.RESEND_API_KEY === undefined ? "absente" : "présente mais vide";
+    console.error(`reservation : RESEND_API_KEY ${cause}`);
     return NextResponse.json(
       {
         erreur: `L’envoi est momentanément indisponible. Appelez Charina au ${MARQUE.telephone}.`,
@@ -129,8 +155,8 @@ export async function POST(requete: Request) {
     );
   }
 
-  const destinataire = process.env.EMAIL_NOTIFICATION ?? MARQUE.emailContact;
-  const resend = getResend();
+  const destinataire = variable("EMAIL_NOTIFICATION") ?? MARQUE.emailContact;
+  const resend = getResend(cleResend);
 
   const { error } = await resend.emails.send({
     from: EXPEDITEUR,
