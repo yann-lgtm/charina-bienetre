@@ -16,11 +16,11 @@
 
 | | |
 |---|---|
-| Production | https://charina-bienetre.vercel.app |
+| Production | https://charina-bienetre.fr |
 | Dépôt | `yann-lgtm/charina-bienetre` |
 | Projet Vercel | `charina-bienetre`, branche de production `main`, région `cdg1` (Paris) |
 | Accès | protégé par l'authentification Vercel — invisible pour Google et pour le public |
-| Domaine | `charina-bienetre.fr` **acheté chez OVH le 2026-09-05** (3 ans, jusqu'au 05/09/2029), pointe encore sur la page de parking OVH — DNS à basculer vers Vercel |
+| Domaine | `charina-bienetre.fr` **en service** depuis le 2026-09-05 — OVH, 3 ans jusqu'au 05/09/2029, DNS vers Vercel, certificat délivré |
 | Messagerie | **Zimbra Starter** chez OVH, un compte inclus — la boîte `contact@` reste à créer |
 
 Le formulaire de demande de rendez-vous a été **testé de bout en bout en production** le
@@ -140,9 +140,22 @@ exactement ce que permet le découpage en une page par soin.
 - [ ] Trancher l'adresse, l'aligner partout
 - [ ] Confirmer l'intitulé de la distinction, corriger `DISTINCTION` si besoin
 - [x] ~~Acheter `charina-bienetre.fr` chez OVH~~ — fait le 2026-09-05
-- [ ] Ajouter le domaine au projet Vercel `charina-bienetre`, puis chez OVH remplacer l'enregistrement A `@` par `76.76.21.21` et le CNAME `www` par la valeur affichée par Vercel. Une fois le certificat délivré, basculer `MARQUE.siteUrl` sur `https://charina-bienetre.fr`
+- [x] ~~Brancher le domaine sur Vercel et basculer `MARQUE.siteUrl`~~ — fait le 2026-09-05
 - [ ] Créer la boîte `contact@charina-bienetre.fr` dans Zimbra — sans elle, `MARQUE.emailContact` annonce sur le site une adresse qui ne reçoit rien
 - [ ] Vérifier le domaine chez Resend **sur un sous-domaine d'envoi** (`send.charina-bienetre.fr`), pas sur le domaine racine — voir le piège ci-dessous
+
+### Le `www` est un `A`, pas un `CNAME`
+
+Vercel demandait un `CNAME www` vers `56af0d198db53153.vercel-dns-016.com.`
+L'interface d'OVH l'a refusé en boucle : un `CNAME` ne peut cohabiter avec aucune
+autre entrée du même nom, et elle continuait de voir un `TXT "3|welcome"` sur `www`
+pourtant supprimé — un cache de son assistant, pas un état réel de la zone.
+
+`www` porte donc un `A → 216.150.1.1`, la même IP que l'apex. Vercel route sur
+l'en-tête `Host`, le résultat est identique et la redirection 308 fonctionne.
+Seule différence : si Vercel change d'IP un jour, ce `A` sera à mettre à jour à la
+main, là où un `CNAME` aurait suivi tout seul. À vérifier si le site tombe sans
+raison apparente.
 
 ### ⚠️ Le piège des DNS : la messagerie et le site partagent la même zone
 
