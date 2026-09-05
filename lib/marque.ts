@@ -71,6 +71,11 @@ export const ZONE = {
   /** Ordre d'affichage : ce que les clientes tapent le plus en premier. */
   communes: ["Ruoms", "Vallon-Pont-d'Arc", "Salavas", "Sud Ardèche"],
   resume: "Ruoms, Vallon-Pont-d'Arc, Salavas et le sud de l'Ardèche",
+  /* Les mêmes lieux, sans la ville principale. Depuis que celle-ci est Ruoms,
+     « à Ruoms, pour toute la région de Ruoms, Vallon-Pont-d'Arc… » se répétait
+     dans quatre phrases. C'est cette constante qu'on emploie juste après avoir
+     nommé la ville. */
+  alentours: "Vallon-Pont-d'Arc, Salavas et le sud de l'Ardèche",
 } as const;
 
 /**

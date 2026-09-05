@@ -91,7 +91,7 @@ export default async function PageReservation({ searchParams }: Proprietes) {
             <Reveler delai={0.18} className="mt-8 border-l-2 border-terracotta/40 pl-7">
               <h2 className="font-titre text-xl font-light text-encre">Où elle reçoit</h2>
               <p className="mt-4 leading-relaxed text-encre-doux">
-                À {ZONE.villePrincipale}, pour toute la région de {ZONE.resume}. L’adresse
+                À {ZONE.villePrincipale}, et pour {ZONE.alentours}. L’adresse
                 exacte vous est communiquée à la confirmation du rendez-vous.
               </p>
               <p className="mt-5 leading-relaxed text-encre-doux">

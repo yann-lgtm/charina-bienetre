@@ -26,7 +26,7 @@ export const metadata: Metadata = {
        chaque titre au-delà des 60 caractères affichés par Google. */
     template: `%s | Charina`,
   },
-  description: `Massages bien-être à ${ZONE.villePrincipale}, entre Ruoms et Vallon-Pont-d’Arc. Cinq soins d’une heure, de 70 à 85 €, par ${MARQUE.praticienne}.`,
+  description: `Massages bien-être à ${ZONE.villePrincipale}, Vallon-Pont-d’Arc et le sud de l’Ardèche. Cinq soins d’une heure, de 70 à 85 €, par ${MARQUE.praticienne}.`,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

@@ -49,7 +49,7 @@ export const BIO = {
       titre: "Ce qu’elle cherche à vous rendre",
       paragraphes: [
         "Ralentir, respirer, se reconnecter : c’est la phrase qu’elle emploie, et elle la prend au pied de la lettre. On vient rarement pour une seule épaule bloquée. On vient parce qu’on n’a pas posé les armes depuis des mois, et qu’une heure sur une table est parfois le seul moment où personne ne demande rien.",
-        `Elle reçoit à ${ZONE.villePrincipale}, et travaille pour toute la région de ${ZONE.resume}. Sa clientèle va des saisonniers en pleine saison touristique aux habitants de la vallée qui reviennent tous les mois, en passant par des vacanciers qui ont marché toute la journée dans les gorges.`,
+        `Elle reçoit à ${ZONE.villePrincipale}, et travaille pour ${ZONE.alentours}. Sa clientèle va des saisonniers en pleine saison touristique aux habitants de la vallée qui reviennent tous les mois, en passant par des vacanciers qui ont marché toute la journée dans les gorges.`,
       ],
     },
   ],
