@@ -19,7 +19,7 @@
 | Production | https://charina-bienetre.fr |
 | Dépôt | `yann-lgtm/charina-bienetre` |
 | Projet Vercel | `charina-bienetre`, branche de production `main`, région `cdg1` (Paris) |
-| Accès | protégé par l'authentification Vercel — invisible pour Google et pour le public |
+| Accès | **public** — protection Vercel désactivée (vérifié le 2026-09-05 : ni mot de passe, ni authentification, ni filtrage IP). Le site est donc indexable, alors que le statut juridique de Charina n'est toujours pas renseigné |
 | Domaine | `charina-bienetre.fr` **en service** depuis le 2026-09-05 — OVH, 3 ans jusqu'au 05/09/2029, DNS vers Vercel, certificat délivré |
 | Messagerie | **Zimbra Starter** chez OVH, un compte inclus — la boîte `contact@` reste à créer |
 
