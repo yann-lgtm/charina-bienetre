@@ -10,13 +10,19 @@ export const MARQUE = {
   /** La baseline du hero, découpée pour l'affichage en gros titre. */
   heroLignes: ["Pas la force.", "Le mouvement."],
 
-  /* ⚠️ Domaine pas encore acheté (décision Yann du 2026-09-03).
-     `domaine` est l'adresse visée ; `siteUrl` est l'adresse réellement
-     servie aujourd'hui. Tant que le .fr n'a pas de DNS, `siteUrl` doit rester
-     sur vercel.app : Messenger, WhatsApp et Google lisent cette constante
-     (canonical, Open Graph, sitemap, JSON-LD) et affichaient un lien .fr qui
-     ne chargeait jamais (constaté le 2026-09-05). Le jour de l'achat OVH,
-     remettre `siteUrl` sur `https://${domaine}` : une seule ligne. */
+  /* `domaine` est l'adresse visée ; `siteUrl` est l'adresse réellement servie.
+     Les deux ne se confondent qu'une fois les DNS en place.
+
+     ✅ Domaine acheté chez OVH le 2026-09-05.
+     ⚠️ Mais il pointe encore sur la page de parking OVH (213.186.33.5) :
+     `siteUrl` doit donc rester sur vercel.app. Messenger, WhatsApp et Google
+     lisent cette constante — canonical, Open Graph, sitemap, JSON-LD — et
+     basculer trop tôt fait circuler un lien qui ne charge pas, ce qui a
+     déjà été constaté le 2026-09-05.
+
+     Condition exacte pour basculer, pas avant : `charina-bienetre.fr` résout
+     vers Vercel (A `@` → 76.76.21.21) et le certificat est délivré. Alors
+     `siteUrl: `https://${domaine}`` — une seule ligne. */
   domaine: "charina-bienetre.fr",
   siteUrl: "https://charina-bienetre.vercel.app",
 

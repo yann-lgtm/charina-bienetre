@@ -20,7 +20,7 @@
 | Dépôt | `yann-lgtm/charina-bienetre` |
 | Projet Vercel | `charina-bienetre`, branche de production `main`, région `cdg1` (Paris) |
 | Accès | protégé par l'authentification Vercel — invisible pour Google et pour le public |
-| Domaine | `charina-bienetre.fr` **non acheté**, placeholder dans `MARQUE.domaine` |
+| Domaine | `charina-bienetre.fr` **acheté chez OVH le 2026-09-05**, pointe encore sur la page de parking OVH — DNS à basculer vers Vercel |
 
 Le formulaire de demande de rendez-vous a été **testé de bout en bout en production** le
 4 septembre : envoi, réception chez Yann, accusé de réception à la cliente, notification
@@ -138,7 +138,9 @@ exactement ce que permet le découpage en une page par soin.
 - [ ] Obtenir le statut juridique et le SIRET, passer `STATUT_JURIDIQUE.renseigne` à `true`
 - [ ] Trancher l'adresse, l'aligner partout
 - [ ] Confirmer l'intitulé de la distinction, corriger `DISTINCTION` si besoin
-- [ ] Acheter `charina-bienetre.fr` chez OVH, DNS vers Vercel, mettre à jour `MARQUE.domaine` et `MARQUE.siteUrl`
+- [x] ~~Acheter `charina-bienetre.fr` chez OVH~~ — fait le 2026-09-05
+- [ ] Ajouter le domaine au projet Vercel `charina-bienetre`, puis chez OVH remplacer l'enregistrement A `@` par `76.76.21.21` et le CNAME `www` par la valeur affichée par Vercel. Une fois le certificat délivré, basculer `MARQUE.siteUrl` sur `https://charina-bienetre.fr`
+- [ ] Créer la boîte `contact@charina-bienetre.fr` chez OVH (MX Plan, inclus avec un .fr) — sans elle, `MARQUE.emailContact` annonce une adresse qui ne reçoit rien
 - [ ] Créer l'adresse `contact@charina-bienetre.fr` — l'adresse yahoo actuelle n'apparaît nulle part
 - [ ] Vérifier le domaine chez Resend, puis basculer `EXPEDITEUR` dans `app/api/reservation/route.ts` : en V1 l'expéditeur est `contact@coeuru.com`, seul domaine vérifié
 - [ ] Shooting photo, remplacer les `PhotoReservee` au même ratio
