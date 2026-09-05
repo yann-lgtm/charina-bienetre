@@ -16,11 +16,12 @@
 
 | | |
 |---|---|
-| Production | https://charina-bienetre.vercel.app |
+| Production | https://charina-bienetre.fr |
 | Dépôt | `yann-lgtm/charina-bienetre` |
 | Projet Vercel | `charina-bienetre`, branche de production `main`, région `cdg1` (Paris) |
-| Accès | protégé par l'authentification Vercel — invisible pour Google et pour le public |
-| Domaine | `charina-bienetre.fr` **non acheté**, placeholder dans `MARQUE.domaine` |
+| Accès | **public** — protection Vercel désactivée (vérifié le 2026-09-05 : ni mot de passe, ni authentification, ni filtrage IP). Le site est donc indexable, alors que le statut juridique de Charina n'est toujours pas renseigné |
+| Domaine | `charina-bienetre.fr` **en service** depuis le 2026-09-05 — OVH, 3 ans jusqu'au 05/09/2029, DNS vers Vercel, certificat délivré |
+| Messagerie | **Zimbra Starter** chez OVH, un compte inclus — la boîte `contact@` reste à créer |
 
 Le formulaire de demande de rendez-vous a été **testé de bout en bout en production** le
 4 septembre : envoi, réception chez Yann, accusé de réception à la cliente, notification
@@ -138,7 +139,46 @@ exactement ce que permet le découpage en une page par soin.
 - [ ] Obtenir le statut juridique et le SIRET, passer `STATUT_JURIDIQUE.renseigne` à `true`
 - [ ] Trancher l'adresse, l'aligner partout
 - [ ] Confirmer l'intitulé de la distinction, corriger `DISTINCTION` si besoin
-- [ ] Acheter `charina-bienetre.fr` chez OVH, DNS vers Vercel, mettre à jour `MARQUE.domaine` et `MARQUE.siteUrl`
+- [x] ~~Acheter `charina-bienetre.fr` chez OVH~~ — fait le 2026-09-05
+- [x] ~~Brancher le domaine sur Vercel et basculer `MARQUE.siteUrl`~~ — fait le 2026-09-05
+- [ ] Créer la boîte `contact@charina-bienetre.fr` dans Zimbra — sans elle, `MARQUE.emailContact` annonce sur le site une adresse qui ne reçoit rien
+- [x] ~~Trancher l'adresse entre les trois sources contradictoires~~ — **Ruoms**, confirmé par Yann le 2026-09-05. Le site était calé sur Salavas ; `ZONE.villePrincipale` et les cinq descriptions de pages soins sont repositionnées. La **rue** reste inconnue : elle n'entre dans le JSON-LD que par `STATUT_JURIDIQUE`
+- [ ] Fiche Google Business : **Charina propriétaire, Yann gestionnaire** — une fiche accrochée au compte personnel de Yann devient un nœud le jour où ils se séparent. Vérifier d'abord qu'aucune fiche n'existe déjà (Wix, Fresha, ou génération automatique par Google) : deux fiches sur un même établissement valent moins que zéro. Catégorie « massage », rien de médical
+- [ ] Search Console : propriété de type **Domaine** sur le compte de Yann, vérification par `TXT` — sans risque, seul le `SPF` doit rester unique. Ajouter Charina en utilisatrice ensuite
+- [ ] Vérifier le domaine chez Resend **sur un sous-domaine d'envoi** (`send.charina-bienetre.fr`), pas sur le domaine racine — voir le piège ci-dessous
+
+### Le `www` est un `A`, pas un `CNAME`
+
+Vercel demandait un `CNAME www` vers `56af0d198db53153.vercel-dns-016.com.`
+L'interface d'OVH l'a refusé en boucle : un `CNAME` ne peut cohabiter avec aucune
+autre entrée du même nom, et elle continuait de voir un `TXT "3|welcome"` sur `www`
+pourtant supprimé — un cache de son assistant, pas un état réel de la zone.
+
+`www` porte donc un `A → 216.150.1.1`, la même IP que l'apex. Vercel route sur
+l'en-tête `Host`, le résultat est identique et la redirection 308 fonctionne.
+Seule différence : si Vercel change d'IP un jour, ce `A` sera à mettre à jour à la
+main, là où un `CNAME` aurait suivi tout seul. À vérifier si le site tombe sans
+raison apparente.
+
+### ⚠️ Le piège des DNS : la messagerie et le site partagent la même zone
+
+La commande OVH du 2026-09-05 comprend **Zimbra Starter** avec un compte inclus. Zimbra
+installe ses propres enregistrements `MX` et son `SPF` dans la zone DNS du domaine. Le
+site, lui, a besoin d'un `A` et d'un `CNAME` qui pointent vers Vercel. Les deux cohabitent
+dans la même zone, et c'est là qu'on casse tout sans s'en apercevoir.
+
+**Ne changer que l'enregistrement `A @` et le `CNAME www`.** Ne toucher ni aux `MX`, ni
+aux `TXT` posés par Zimbra.
+
+**Ne pas déléguer le domaine aux serveurs de noms de Vercel.** Vercel le propose, c'est
+plus simple en apparence, et ça remplace la zone entière : les `MX` de Zimbra disparaissent
+et la boîte de Charina cesse de recevoir, sans message d'erreur nulle part.
+
+**Chez Resend, prendre le sous-domaine d'envoi proposé** (`send.charina-bienetre.fr`).
+Un domaine ne peut porter qu'**un seul** enregistrement SPF (RFC 7208) : en ajouter un
+second à la racine invalide les deux, et les e-mails de réservation comme ceux de Charina
+partent en indésirable. Le sous-domaine porte son SPF à lui et laisse celui de Zimbra
+intact.
 - [ ] Créer l'adresse `contact@charina-bienetre.fr` — l'adresse yahoo actuelle n'apparaît nulle part
 - [ ] Vérifier le domaine chez Resend, puis basculer `EXPEDITEUR` dans `app/api/reservation/route.ts` : en V1 l'expéditeur est `contact@coeuru.com`, seul domaine vérifié
 - [ ] Shooting photo, remplacer les `PhotoReservee` au même ratio

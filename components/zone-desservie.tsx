@@ -9,9 +9,9 @@ import { ZONE } from "@/lib/marque";
  */
 const LIEUX = [
   {
-    nom: "Salavas",
+    nom: "Ruoms",
     texte:
-      "Le point de départ, juste en face de Vallon-Pont-d’Arc, de l’autre côté de l’Ardèche.",
+      "Le point de départ. C’est là qu’elle reçoit, et de là que vient une bonne part de la clientèle qui revient chaque mois.",
   },
   {
     nom: "Vallon-Pont-d’Arc",
@@ -19,9 +19,9 @@ const LIEUX = [
       "À quelques minutes. Beaucoup de clientes viennent après une journée de canoë ou de marche dans les gorges.",
   },
   {
-    nom: "Ruoms",
+    nom: "Salavas",
     texte:
-      "Un quart d’heure de route. C’est de là que vient une bonne part de la clientèle qui revient chaque mois.",
+      "Juste en face de Vallon-Pont-d’Arc, de l’autre côté de l’Ardèche. Un quart d’heure de route.",
   },
   {
     nom: "Sud Ardèche",

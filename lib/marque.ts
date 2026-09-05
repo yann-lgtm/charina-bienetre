@@ -10,15 +10,17 @@ export const MARQUE = {
   /** La baseline du hero, découpée pour l'affichage en gros titre. */
   heroLignes: ["Pas la force.", "Le mouvement."],
 
-  /* ⚠️ Domaine pas encore acheté (décision Yann du 2026-09-03).
-     `domaine` est l'adresse visée ; `siteUrl` est l'adresse réellement
-     servie aujourd'hui. Tant que le .fr n'a pas de DNS, `siteUrl` doit rester
-     sur vercel.app : Messenger, WhatsApp et Google lisent cette constante
-     (canonical, Open Graph, sitemap, JSON-LD) et affichaient un lien .fr qui
-     ne chargeait jamais (constaté le 2026-09-05). Le jour de l'achat OVH,
-     remettre `siteUrl` sur `https://${domaine}` : une seule ligne. */
+  /* Domaine acheté chez OVH et branché sur Vercel le 2026-09-05. Les deux
+     enregistrements A — l'apex et le www — pointent sur 216.150.1.1, le
+     certificat est délivré, et le www redirige en 308 vers l'apex.
+
+     Le site s'était affiché quelques heures sur vercel.app : `siteUrl` nourrit
+     le canonical, l'Open Graph, le sitemap et le JSON-LD, et l'annoncer avant
+     que les DNS ne répondent avait fait circuler sur Messenger et WhatsApp un
+     lien qui ne chargeait pas. D'où la règle, si l'adresse rebouge un jour :
+     on ne l'écrit ici qu'une fois qu'elle répond. */
   domaine: "charina-bienetre.fr",
-  siteUrl: "https://charina-bienetre.vercel.app",
+  siteUrl: "https://charina-bienetre.fr",
 
   /* Adresse de contact publique. L'adresse yahoo personnelle de Charina ne
      doit apparaître nulle part sur le site — elle sera à créer sur le
@@ -54,8 +56,16 @@ export const DISTINCTION = {
  * une lectrice et mieux traité par Google qu'un pavé de communes.
  */
 export const ZONE = {
-  villePrincipale: "Salavas",
-  codePostal: "07150",
+  /* Ruoms, confirmé par Yann le 2026-09-05 : c'est là que Charina reçoit en
+     priorité. Le site annonçait Salavas, repris d'une de ses trois fiches en
+     ligne — et l'enjeu n'est pas cosmétique, ses deux concurrentes les plus
+     visibles se positionnent précisément sur « massage Ruoms ».
+
+     La rue reste inconnue : elle n'apparaîtra dans le JSON-LD que via
+     STATUT_JURIDIQUE, quand Charina l'aura donnée. On n'écrit que ce qui est
+     vérifié — voir CLAUDE.md. */
+  villePrincipale: "Ruoms",
+  codePostal: "07120",
   departement: "Ardèche",
   region: "Auvergne-Rhône-Alpes",
   /** Ordre d'affichage : ce que les clientes tapent le plus en premier. */
