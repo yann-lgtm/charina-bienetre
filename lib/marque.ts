@@ -11,11 +11,14 @@ export const MARQUE = {
   heroLignes: ["Pas la force.", "Le mouvement."],
 
   /* ⚠️ Domaine pas encore acheté (décision Yann du 2026-09-03).
-     Tout le site lit cette constante : le jour de l'achat OVH, cette ligne
-     et la suivante suffisent. Vérifier la disponibilité avant de promettre
-     l'adresse à Charina. */
+     `domaine` est l'adresse visée ; `siteUrl` est l'adresse réellement
+     servie aujourd'hui. Tant que le .fr n'a pas de DNS, `siteUrl` doit rester
+     sur vercel.app : Messenger, WhatsApp et Google lisent cette constante
+     (canonical, Open Graph, sitemap, JSON-LD) et affichaient un lien .fr qui
+     ne chargeait jamais (constaté le 2026-09-05). Le jour de l'achat OVH,
+     remettre `siteUrl` sur `https://${domaine}` : une seule ligne. */
   domaine: "charina-bienetre.fr",
-  siteUrl: "https://charina-bienetre.fr",
+  siteUrl: "https://charina-bienetre.vercel.app",
 
   /* Adresse de contact publique. L'adresse yahoo personnelle de Charina ne
      doit apparaître nulle part sur le site — elle sera à créer sur le
