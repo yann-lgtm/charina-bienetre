@@ -28,7 +28,7 @@ export const PILIERS = [
 /** Bio de la page À propos, en blocs pour aérer la lecture sur mobile. */
 export const BIO = {
   chapeau:
-    "Praticienne en soins corporels à Salavas, entre Ruoms et Vallon-Pont-d’Arc. Formée à plus de huit techniques venues d’autant de traditions, et convaincue qu’un corps se dénoue par le mouvement bien plus que par la force.",
+    "Praticienne en soins corporels à Ruoms, entre Vallon-Pont-d’Arc et le sud de l’Ardèche. Formée à plus de huit techniques venues d’autant de traditions, et convaincue qu’un corps se dénoue par le mouvement bien plus que par la force.",
   sections: [
     {
       titre: "D’où viennent ses mains",

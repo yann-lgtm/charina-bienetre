@@ -142,6 +142,9 @@ exactement ce que permet le découpage en une page par soin.
 - [x] ~~Acheter `charina-bienetre.fr` chez OVH~~ — fait le 2026-09-05
 - [x] ~~Brancher le domaine sur Vercel et basculer `MARQUE.siteUrl`~~ — fait le 2026-09-05
 - [ ] Créer la boîte `contact@charina-bienetre.fr` dans Zimbra — sans elle, `MARQUE.emailContact` annonce sur le site une adresse qui ne reçoit rien
+- [x] ~~Trancher l'adresse entre les trois sources contradictoires~~ — **Ruoms**, confirmé par Yann le 2026-09-05. Le site était calé sur Salavas ; `ZONE.villePrincipale` et les cinq descriptions de pages soins sont repositionnées. La **rue** reste inconnue : elle n'entre dans le JSON-LD que par `STATUT_JURIDIQUE`
+- [ ] Fiche Google Business : **Charina propriétaire, Yann gestionnaire** — une fiche accrochée au compte personnel de Yann devient un nœud le jour où ils se séparent. Vérifier d'abord qu'aucune fiche n'existe déjà (Wix, Fresha, ou génération automatique par Google) : deux fiches sur un même établissement valent moins que zéro. Catégorie « massage », rien de médical
+- [ ] Search Console : propriété de type **Domaine** sur le compte de Yann, vérification par `TXT` — sans risque, seul le `SPF` doit rester unique. Ajouter Charina en utilisatrice ensuite
 - [ ] Vérifier le domaine chez Resend **sur un sous-domaine d'envoi** (`send.charina-bienetre.fr`), pas sur le domaine racine — voir le piège ci-dessous
 
 ### Le `www` est un `A`, pas un `CNAME`

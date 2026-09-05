@@ -56,8 +56,16 @@ export const DISTINCTION = {
  * une lectrice et mieux traité par Google qu'un pavé de communes.
  */
 export const ZONE = {
-  villePrincipale: "Salavas",
-  codePostal: "07150",
+  /* Ruoms, confirmé par Yann le 2026-09-05 : c'est là que Charina reçoit en
+     priorité. Le site annonçait Salavas, repris d'une de ses trois fiches en
+     ligne — et l'enjeu n'est pas cosmétique, ses deux concurrentes les plus
+     visibles se positionnent précisément sur « massage Ruoms ».
+
+     La rue reste inconnue : elle n'apparaîtra dans le JSON-LD que via
+     STATUT_JURIDIQUE, quand Charina l'aura donnée. On n'écrit que ce qui est
+     vérifié — voir CLAUDE.md. */
+  villePrincipale: "Ruoms",
+  codePostal: "07120",
   departement: "Ardèche",
   region: "Auvergne-Rhône-Alpes",
   /** Ordre d'affichage : ce que les clientes tapent le plus en premier. */
