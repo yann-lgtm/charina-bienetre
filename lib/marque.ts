@@ -51,6 +51,26 @@ export const DISTINCTION = {
 } as const;
 
 /**
+ * Ouverture aux moteurs de recherche.
+ *
+ * Le site est en ligne et joignable par qui a l'adresse — c'est ce qui permet
+ * de le montrer à Charina sur son téléphone. Mais tant que son statut juridique
+ * n'est pas renseigné, il n'a rien à faire dans Google : les mentions légales
+ * sont incomplètes, et une page indexée puis retirée laisse une trace plus
+ * longue que le temps qu'elle a passé en ligne.
+ *
+ * La protection par mot de passe de Vercel aurait été plus étanche, mais elle
+ * est facturée 150 $/mois — hors de proportion pour une mise en veille de
+ * quelques semaines (constaté le 2026-09-05).
+ *
+ * Passer `ouverte` à `true` le jour de l'ouverture : `robots.txt`, la balise
+ * `robots` de chaque page et le `sitemap.xml` suivent tous cette constante.
+ */
+export const INDEXATION = {
+  ouverte: false,
+} as const;
+
+/**
  * Zone réellement desservie. Pas de liste de villes gonflée pour ratisser
  * Google : quatre lieux où elle travaille vraiment, c'est plus crédible pour
  * une lectrice et mieux traité par Google qu'un pavé de communes.

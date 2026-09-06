@@ -3,7 +3,7 @@ import { Fraunces, Albert_Sans } from "next/font/google";
 import { EnTete } from "@/components/en-tete";
 import { Mouvement } from "@/components/mouvement";
 import { Pied } from "@/components/pied";
-import { MARQUE, ZONE } from "@/lib/marque";
+import { MARQUE, ZONE, INDEXATION } from "@/lib/marque";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     siteName: MARQUE.nom,
     url: MARQUE.siteUrl,
   },
-  /* Contrairement aux pages d’atterrissage de coeuru, ce site doit être
-     indexé dès la mise en ligne : c’est toute sa raison d’être. */
-  robots: { index: true, follow: true },
+  /* Ce site a vocation à être indexé — c'est toute sa raison d'être. Mais pas
+     avant que son statut juridique soit réglé : voir INDEXATION. */
+  robots: { index: INDEXATION.ouverte, follow: INDEXATION.ouverte },
 };
 
 export default function LayoutRacine({
