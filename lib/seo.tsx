@@ -21,6 +21,10 @@ export function ficheEtablissement() {
     name: MARQUE.nom,
     description: `Massages bien-être par ${MARQUE.praticienne}, ${DISTINCTION.court.toLowerCase()}, à ${ZONE.villePrincipale}. ${ZONE.resume}.`,
     url: MARQUE.siteUrl,
+    /* Google affiche cette image dans le panneau de connaissance et sur mobile.
+       Sans photo de Charina à ce jour, on pointe la vignette de partage —
+       à remplacer par une vraie photo du lieu après le shooting. */
+    image: `${MARQUE.siteUrl}/opengraph-image`,
     telephone: MARQUE.telephoneLien,
     email: MARQUE.emailContact,
     priceRange: "70 € – 85 €",

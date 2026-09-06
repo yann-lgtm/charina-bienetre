@@ -47,7 +47,7 @@ export const SOINS: Soin[] = [
       "Le soin qui porte son nom. Huit techniques apprises aux quatre coins du monde, assemblées en un seul mouvement continu, recomposé pour chaque personne qui s’allonge sur la table.",
     metaTitre: "Massage signature Charina Fusion — Ruoms",
     metaDescription:
-      "Le massage signature de Charina Duguet à Salavas : huit techniques du monde en un seul soin sur mesure, 1 h, 85 €. Ruoms, Vallon-Pont-d’Arc, sud Ardèche.",
+      "Le massage signature de Charina Duguet à Ruoms : huit techniques du monde en un seul soin sur mesure, 1 h, 85 €. Ruoms, Vallon-Pont-d’Arc, sud Ardèche.",
     paragraphes: [
       "C’est le massage qu’on vient chercher de loin, et c’est aussi le plus difficile à raconter — parce qu’il n’a pas de protocole figé. Charina a appris le Hilot, médecine traditionnelle philippine, puis le suédois, le californien, le lomi-lomi hawaïen, les étirements thaï, le travail profond, les ventouses, le drainage. Le Charina Fusion, c’est ce qui reste quand on cesse de les pratiquer séparément : un seul soin, assemblé sur place, à partir de ce que votre corps raconte ce jour-là.",
       "Sa particularité tient en une phrase, et c’est celle qui la distingue de la plupart des praticiens : elle ne travaille pas par la pression, mais par le mouvement. Beaucoup de massages appuient fort et attendent que le muscle cède. Ici, l’avant-bras, la paume et le coude circulent, reviennent, relancent — et la tension se relâche parce qu’elle n’a plus de raison de tenir. C’est cette approche qui a été distinguée en concours, et c’est ce que les clientes décrivent en se relevant : l’impression d’avoir été déplacée plutôt que pétrie.",
@@ -96,7 +96,7 @@ export const SOINS: Soin[] = [
       "Pour les corps qui travaillent. Travail profond et ventouses sur les zones qui encaissent : dos, cuisses, mollets, épaules. Sortie tonique, jamais assommée.",
     metaTitre: "Massage sportif et ventouses — Ruoms, Vallon",
     metaDescription:
-      "Massage sportif profond et ventouses à Salavas, près de Ruoms et Vallon-Pont-d’Arc : récupération, jambes lourdes, dos de travailleur. 1 h, 80 €.",
+      "Massage sportif profond et ventouses à Ruoms, près de Vallon-Pont-d’Arc et Salavas : récupération, jambes lourdes, dos de travailleur. 1 h, 80 €.",
     paragraphes: [
       "Celui-ci est fait pour les corps qui produisent de l’effort — les sportifs, mais pas seulement. En Ardèche, ce sont autant des coureurs et des grimpeurs que des couvreurs, des viticulteurs, des saisonniers debout douze heures par jour. Le point commun : des zones qui encaissent toujours les mêmes contraintes, jusqu’à devenir dures au toucher.",
       "Le travail est franc, plus appuyé que sur les autres soins de la carte, mais il reste tenu par la même règle : on relance la circulation avant de forcer quoi que ce soit. Charina passe d’abord longuement sur la zone pour la réchauffer, puis entre en profondeur avec l’avant-bras et le coude, et n’insiste sur un point que quand le muscle autour a déjà lâché. C’est ce qui fait la différence entre un massage profond et un massage qui laisse des bleus.",
@@ -145,7 +145,7 @@ export const SOINS: Soin[] = [
       "Aucun protocole, aucune zone décidée à l’avance. Charina suit ce qu’elle trouve sous ses mains, et le soin se construit là où le corps le demande.",
     metaTitre: "Massage intuitif à Ruoms et Vallon-Pont-d’Arc",
     metaDescription:
-      "Massage intuitif à Salavas, près de Ruoms et Vallon-Pont-d’Arc : un soin sans protocole, guidé par ce que le corps demande. 1 h, 75 €.",
+      "Massage intuitif à Ruoms, près de Vallon-Pont-d’Arc et Salavas : un soin sans protocole, guidé par ce que le corps demande. 1 h, 75 €.",
     paragraphes: [
       "C’est le soin le plus libre de la carte, et sans doute le plus personnel. Il n’y a pas d’enchaînement prévu, pas de zone décidée avant que vous soyez allongée. Charina pose les mains, écoute ce qu’elle trouve — une épaule plus haute que l’autre, un ventre qui ne respire pas, un mollet dur comme du bois — et le soin part de là.",
       "« Intuitif » ne veut pas dire mystérieux. Après plus de huit techniques apprises et des milliers d’heures de table, une praticienne sent sous ses doigts des choses qu’aucun protocole ne prévoit. Ce soin, c’est simplement le moment où elle cesse de suivre une trame pour ne suivre que ce qu’elle perçoit. Rien d’ésotérique là-dedans : de l’expérience, et une attention qui ne se disperse pas.",
@@ -194,7 +194,7 @@ export const SOINS: Soin[] = [
       "Le soin le plus doux de la carte. Des mouvements longs, enveloppants, sans appui profond — une heure pour que le système nerveux redescende.",
     metaTitre: "Massage relaxant — Ruoms, Vallon-Pont-d’Arc",
     metaDescription:
-      "Massage relaxant à Salavas, près de Ruoms et Vallon-Pont-d’Arc : mouvements longs et enveloppants pour décrocher vraiment. 1 h, 70 €.",
+      "Massage relaxant à Ruoms, près de Vallon-Pont-d’Arc et Salavas : mouvements longs et enveloppants pour décrocher vraiment. 1 h, 70 €.",
     paragraphes: [
       "Il y a des jours où le corps n’a pas besoin qu’on aille chercher au fond. Il a besoin qu’on le laisse redescendre. C’est exactement ce que fait ce soin : des mouvements longs, continus, enveloppants, sans appui profond, avec un rythme qui ralentit à mesure que la séance avance.",
       "C’est le soin le plus doux de la carte, et c’est un choix technique, pas un soin au rabais. Le geste enveloppant, répété et prévisible, est ce qui permet au système nerveux de relâcher sa vigilance : le corps finit par comprendre qu’il n’a plus rien à surveiller. C’est là que la mâchoire se desserre, que les épaules descendent de deux centimètres, et que beaucoup s’endorment sans s’en rendre compte.",
@@ -244,7 +244,7 @@ export const SOINS: Soin[] = [
       "Un drainage manuel doux, tout en mouvements lents et rythmés, pour les jambes lourdes et les sensations de gonflement en fin de journée.",
     metaTitre: "Drainage lymphatique — Ruoms, Vallon-Pont-d’Arc",
     metaDescription:
-      "Massage drainant bien-être à Salavas, près de Ruoms et Vallon-Pont-d’Arc : jambes lourdes, sensation de gonflement, légèreté. 1 h, 70 €.",
+      "Massage drainant bien-être à Ruoms, près de Vallon-Pont-d’Arc et Salavas : jambes lourdes, sensation de gonflement, légèreté. 1 h, 70 €.",
     paragraphes: [
       "Ce soin s’adresse d’abord aux jambes lourdes — celles de la fin de journée debout, des fortes chaleurs de l’été ardéchois, des longs trajets en voiture, ou des semaines où l’on se sent gonflée sans savoir pourquoi. C’est un drainage manuel de bien-être : des pressions douces, lentes et très rythmées, remontant toujours dans le même sens.",
       "La technique est à l’opposé du massage sportif. Ici, la pression est légère — beaucoup plus légère que ce à quoi on s’attend — parce que ce qu’on cherche à mobiliser circule juste sous la peau. La régularité du rythme compte davantage que la force : c’est répétitif, presque hypnotique, et c’est précisément ce qui produit la sensation de légèreté en se relevant.",

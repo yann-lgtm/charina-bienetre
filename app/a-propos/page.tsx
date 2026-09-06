@@ -86,7 +86,7 @@ export default function PageAPropos() {
 
       <AppelReservation
         titre="Venir la voir"
-        texte={`Elle reçoit à ${ZONE.villePrincipale}, et travaille pour toute la région de ${ZONE.resume}.`}
+        texte={`Elle reçoit à ${ZONE.villePrincipale}, et travaille pour ${ZONE.alentours}.`}
       />
     </>
   );

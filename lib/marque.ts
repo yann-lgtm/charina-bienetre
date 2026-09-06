@@ -10,15 +10,17 @@ export const MARQUE = {
   /** La baseline du hero, découpée pour l'affichage en gros titre. */
   heroLignes: ["Pas la force.", "Le mouvement."],
 
-  /* ⚠️ Domaine pas encore acheté (décision Yann du 2026-09-03).
-     `domaine` est l'adresse visée ; `siteUrl` est l'adresse réellement
-     servie aujourd'hui. Tant que le .fr n'a pas de DNS, `siteUrl` doit rester
-     sur vercel.app : Messenger, WhatsApp et Google lisent cette constante
-     (canonical, Open Graph, sitemap, JSON-LD) et affichaient un lien .fr qui
-     ne chargeait jamais (constaté le 2026-09-05). Le jour de l'achat OVH,
-     remettre `siteUrl` sur `https://${domaine}` : une seule ligne. */
+  /* Domaine acheté chez OVH et branché sur Vercel le 2026-09-05. Les deux
+     enregistrements A — l'apex et le www — pointent sur 216.150.1.1, le
+     certificat est délivré, et le www redirige en 308 vers l'apex.
+
+     Le site s'était affiché quelques heures sur vercel.app : `siteUrl` nourrit
+     le canonical, l'Open Graph, le sitemap et le JSON-LD, et l'annoncer avant
+     que les DNS ne répondent avait fait circuler sur Messenger et WhatsApp un
+     lien qui ne chargeait pas. D'où la règle, si l'adresse rebouge un jour :
+     on ne l'écrit ici qu'une fois qu'elle répond. */
   domaine: "charina-bienetre.fr",
-  siteUrl: "https://charina-bienetre.vercel.app",
+  siteUrl: "https://charina-bienetre.fr",
 
   /* Adresse de contact publique. L'adresse yahoo personnelle de Charina ne
      doit apparaître nulle part sur le site — elle sera à créer sur le
@@ -49,18 +51,51 @@ export const DISTINCTION = {
 } as const;
 
 /**
+ * Ouverture aux moteurs de recherche.
+ *
+ * Le site est en ligne et joignable par qui a l'adresse — c'est ce qui permet
+ * de le montrer à Charina sur son téléphone. Mais tant que son statut juridique
+ * n'est pas renseigné, il n'a rien à faire dans Google : les mentions légales
+ * sont incomplètes, et une page indexée puis retirée laisse une trace plus
+ * longue que le temps qu'elle a passé en ligne.
+ *
+ * La protection par mot de passe de Vercel aurait été plus étanche, mais elle
+ * est facturée 150 $/mois — hors de proportion pour une mise en veille de
+ * quelques semaines (constaté le 2026-09-05).
+ *
+ * Passer `ouverte` à `true` le jour de l'ouverture : `robots.txt`, la balise
+ * `robots` de chaque page et le `sitemap.xml` suivent tous cette constante.
+ */
+export const INDEXATION = {
+  ouverte: false,
+} as const;
+
+/**
  * Zone réellement desservie. Pas de liste de villes gonflée pour ratisser
  * Google : quatre lieux où elle travaille vraiment, c'est plus crédible pour
  * une lectrice et mieux traité par Google qu'un pavé de communes.
  */
 export const ZONE = {
-  villePrincipale: "Salavas",
-  codePostal: "07150",
+  /* Ruoms, confirmé par Yann le 2026-09-05 : c'est là que Charina reçoit en
+     priorité. Le site annonçait Salavas, repris d'une de ses trois fiches en
+     ligne — et l'enjeu n'est pas cosmétique, ses deux concurrentes les plus
+     visibles se positionnent précisément sur « massage Ruoms ».
+
+     La rue reste inconnue : elle n'apparaîtra dans le JSON-LD que via
+     STATUT_JURIDIQUE, quand Charina l'aura donnée. On n'écrit que ce qui est
+     vérifié — voir CLAUDE.md. */
+  villePrincipale: "Ruoms",
+  codePostal: "07120",
   departement: "Ardèche",
   region: "Auvergne-Rhône-Alpes",
   /** Ordre d'affichage : ce que les clientes tapent le plus en premier. */
   communes: ["Ruoms", "Vallon-Pont-d'Arc", "Salavas", "Sud Ardèche"],
   resume: "Ruoms, Vallon-Pont-d'Arc, Salavas et le sud de l'Ardèche",
+  /* Les mêmes lieux, sans la ville principale. Depuis que celle-ci est Ruoms,
+     « à Ruoms, pour toute la région de Ruoms, Vallon-Pont-d'Arc… » se répétait
+     dans quatre phrases. C'est cette constante qu'on emploie juste après avoir
+     nommé la ville. */
+  alentours: "Vallon-Pont-d'Arc, Salavas et le sud de l'Ardèche",
 } as const;
 
 /**

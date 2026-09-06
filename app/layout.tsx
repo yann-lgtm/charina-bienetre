@@ -3,7 +3,7 @@ import { Fraunces, Albert_Sans } from "next/font/google";
 import { EnTete } from "@/components/en-tete";
 import { Mouvement } from "@/components/mouvement";
 import { Pied } from "@/components/pied";
-import { MARQUE, ZONE } from "@/lib/marque";
+import { MARQUE, ZONE, INDEXATION } from "@/lib/marque";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
        chaque titre au-delà des 60 caractères affichés par Google. */
     template: `%s | Charina`,
   },
-  description: `Massages bien-être à ${ZONE.villePrincipale}, entre Ruoms et Vallon-Pont-d’Arc. Cinq soins d’une heure, de 70 à 85 €, par ${MARQUE.praticienne}.`,
+  description: `Massages bien-être à ${ZONE.villePrincipale}, Vallon-Pont-d’Arc et le sud de l’Ardèche. Cinq soins d’une heure, de 70 à 85 €, par ${MARQUE.praticienne}.`,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     siteName: MARQUE.nom,
     url: MARQUE.siteUrl,
   },
-  /* Contrairement aux pages d’atterrissage de coeuru, ce site doit être
-     indexé dès la mise en ligne : c’est toute sa raison d’être. */
-  robots: { index: true, follow: true },
+  /* Ce site a vocation à être indexé — c'est toute sa raison d'être. Mais pas
+     avant que son statut juridique soit réglé : voir INDEXATION. */
+  robots: { index: INDEXATION.ouverte, follow: INDEXATION.ouverte },
 };
 
 export default function LayoutRacine({

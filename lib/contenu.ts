@@ -28,7 +28,7 @@ export const PILIERS = [
 /** Bio de la page À propos, en blocs pour aérer la lecture sur mobile. */
 export const BIO = {
   chapeau:
-    "Praticienne en soins corporels à Salavas, entre Ruoms et Vallon-Pont-d’Arc. Formée à plus de huit techniques venues d’autant de traditions, et convaincue qu’un corps se dénoue par le mouvement bien plus que par la force.",
+    "Praticienne en soins corporels à Ruoms, entre Vallon-Pont-d’Arc et le sud de l’Ardèche. Formée à plus de huit techniques venues d’autant de traditions, et convaincue qu’un corps se dénoue par le mouvement bien plus que par la force.",
   sections: [
     {
       titre: "D’où viennent ses mains",
@@ -49,7 +49,7 @@ export const BIO = {
       titre: "Ce qu’elle cherche à vous rendre",
       paragraphes: [
         "Ralentir, respirer, se reconnecter : c’est la phrase qu’elle emploie, et elle la prend au pied de la lettre. On vient rarement pour une seule épaule bloquée. On vient parce qu’on n’a pas posé les armes depuis des mois, et qu’une heure sur une table est parfois le seul moment où personne ne demande rien.",
-        `Elle reçoit à ${ZONE.villePrincipale}, et travaille pour toute la région de ${ZONE.resume}. Sa clientèle va des saisonniers en pleine saison touristique aux habitants de la vallée qui reviennent tous les mois, en passant par des vacanciers qui ont marché toute la journée dans les gorges.`,
+        `Elle reçoit à ${ZONE.villePrincipale}, et travaille pour ${ZONE.alentours}. Sa clientèle va des saisonniers en pleine saison touristique aux habitants de la vallée qui reviennent tous les mois, en passant par des vacanciers qui ont marché toute la journée dans les gorges.`,
       ],
     },
   ],

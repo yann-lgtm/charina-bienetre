@@ -1,10 +1,14 @@
 import type { MetadataRoute } from "next";
-import { MARQUE } from "@/lib/marque";
+import { INDEXATION, MARQUE } from "@/lib/marque";
 import { SOINS_ACTIFS } from "@/lib/soins";
 
 /* Les pages légales sont volontairement absentes : elles sont en noindex,
    les lister enverrait un signal contradictoire à Google. */
 export default function sitemap(): MetadataRoute.Sitemap {
+  /* Fermé aux moteurs : un sitemap vide plutôt qu'une liste de pages en
+     noindex, qui serait un signal contradictoire. */
+  if (!INDEXATION.ouverte) return [];
+
   const maintenant = new Date();
 
   const pages = [
